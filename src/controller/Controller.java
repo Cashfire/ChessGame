@@ -18,29 +18,43 @@ public class Controller {
   }
 
   public ViewState clickHandler(Pos clickPosition) {
+    //if possibleMoves is empty and not piece in the chosen square, do nothing????
+    //if possibleMoves is empty and a piece is chosen, add the piece's validMoves
     if (chessBoard.getCurrentPossibleMoves().isEmpty()) {
-      // click some piece to show the possible moves
       if (chessBoard.getBoard().getPiece(clickPosition) != null) {
         chessBoard
             .getCurrentPossibleMoves()
             .addAll(
                 chessBoard.getBoard().getPiece(clickPosition).getValidMoves(chessBoard.getBoard()));
-        chessBoard.setSelectPosition(clickPosition);
+        chessBoard.setSelectPosition(clickPosition);//mark the clicked position
       }
     } else {
-      // click some square to move the piece
+      //      //if possibleMoves is not empty, and clickPosition is in the possibleMoves,
+      //      // move the piece that be marked selectionPosition during last clicking.
       if (chessBoard.getCurrentPossibleMoves().contains(clickPosition)) {
         chessBoard
             .getBoard()
             .getPiece(chessBoard.getSelectPosition())
             .move(chessBoard.getBoard(), clickPosition, false);
-      } else {
-        // If not in possible moves, clear the possible moves
         chessBoard.getCurrentPossibleMoves().clear();
+        chessBoard.setSelectPosition(null);
+      } else {
+        // if possibleMoves is not empty but clickPosition is not in the possibleMoves, clear
+        // possible moves
+        // if the chose square has a piece, shows the piece's possibleMoves
+        chessBoard.getCurrentPossibleMoves().clear();
+        if (chessBoard.getBoard().getPiece(clickPosition) != null) {
+          chessBoard
+              .getCurrentPossibleMoves()
+              .addAll(
+                  chessBoard
+                      .getBoard()
+                      .getPiece(clickPosition)
+                      .getValidMoves(chessBoard.getBoard()));
+          chessBoard.setSelectPosition(clickPosition); // mark the clicked position
+        }
       }
-      chessBoard.getCurrentPossibleMoves().clear();
-      chessBoard.setSelectPosition(null);
-    }
+      }
     return new ViewState(
         chessBoard.getCurrentPossibleMoves(),
         Piece.getWhoseTurn(),

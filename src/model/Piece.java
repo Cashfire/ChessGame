@@ -62,13 +62,13 @@ public abstract class Piece {
   public static String getWhoseTurn() {
     String color = trace.isEmpty() ? "W" : trace.get(trace.size() - 1).getPiece().getOpositeColor();
     if (ended) {
-      color = color + " win the game";
+      color = getLastMovePiece().getColor() + " win the game";
     }
     return color;
   }
 
   public static int getTotalRound() {
-    return trace.size();
+    return trace.size() / 2;
   }
 
   /**
@@ -158,18 +158,18 @@ public abstract class Piece {
   public void move(Board board, Pos target, boolean isSimulate) {
     neverMoved = false;
 
-    Piece attacked = null;
+    Piece attackTarget = null;
     if (board.getPiece(target) != null) {
-      attacked = board.getPiece(target);
+      attackTarget = board.getPiece(target);
     }
     board.setPiece(getPos(), null);
     board.setPiece(target, this);
     if (!isSimulate) {
-      trace.add(new Step(getPos(), target, this, attacked));
+      trace.add(new Step(getPos(), target, this, attackTarget));
     }
-    pos = target;
+    pos = target; //update current position
     //if the opposite player cannot move any piece.
-    if (!isSimulate && !board.getCurrentActivePieces().stream().filter(p -> !p.getColor().equals(getColor())).anyMatch(p-> p.getValidMoves(board).size() > 0)) {
+    if (!isSimulate && board.getCurrentActivePieces().stream().filter(p -> !p.getColor().equals(getColor())).noneMatch(p-> p.getValidMoves(board).size() > 0)) {
       System.out.println("--------------------------------");
       System.out.println(getColor() + " wins the game.");
       System.out.println("--------------------------------");

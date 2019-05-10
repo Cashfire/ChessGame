@@ -166,49 +166,49 @@ public class ChessBoard {
     return fen;
   }
 
-  public void printBoard() {
-    String boundary = "  - - - - - - - -  ";
-    String BLUE_BACKGROUND = "\033[44m";
-    String PURPLE_BACKGROUND = "\033[45m";
-    String BLACK_BACKGROUND = "\033[0;30m";
-    String YELLOW = "\u001B[93m";
-    String RED = "\u001B[91m";
-    System.out.println();
-    System.out.println(boundary);
-    for (int row = 0; row < 8; row++) {
-      System.out.print(BLACK_BACKGROUND + row + " ");
-      for (int col = 0; col < 8; col++) {
-        String backgroundColor =
-            currentPossibleMoves.contains(new Pos(row, col)) ? PURPLE_BACKGROUND : BLACK_BACKGROUND;
-        backgroundColor =
-            selectPosition != null && selectPosition.equals(new Pos(row, col))
-                ? BLUE_BACKGROUND
-                : backgroundColor;
-        if (selectPosition != null
-            && selectPosition.getRow() == row
-            && selectPosition.getCol() == col) {
-          System.out.print(backgroundColor + board.getPiece(row, col).getId());
-          System.out.print(BLACK_BACKGROUND + " ");
-          continue;
-        }
-        if (board.getPiece(row, col) != null) {
-          String fontColor = board.getPiece(row, col).getColor().equals("W") ? YELLOW : RED;
-          System.out.print(backgroundColor + fontColor + board.getPiece(row, col).getId() + " ");
-        } else if (currentPossibleMoves.contains(new Pos(row, col))) {
-          System.out.print(backgroundColor + "*");
-          System.out.print(BLACK_BACKGROUND + " ");
-        } else {
-          System.out.print(BLACK_BACKGROUND + "  ");
-        }
-      }
-      System.out.print(BLACK_BACKGROUND + " " + row);
-      System.out.println();
-    }
-    System.out.println(boundary);
-  }
+//  public void printBoard() {
+//    String boundary = "  - - - - - - - -  ";
+//    String BLUE_BACKGROUND = "\033[44m";
+//    String PURPLE_BACKGROUND = "\033[45m";
+//    String BLACK_BACKGROUND = "\033[0;30m";
+//    String YELLOW = "\u001B[93m";
+//    String RED = "\u001B[91m";
+//    System.out.println();
+//    System.out.println(boundary);
+//    for (int row = 0; row < 8; row++) {
+//      System.out.print(BLACK_BACKGROUND + row + " ");
+//      for (int col = 0; col < 8; col++) {
+//        String backgroundColor =
+//            currentPossibleMoves.contains(new Pos(row, col)) ? PURPLE_BACKGROUND : BLACK_BACKGROUND;
+//        backgroundColor =
+//            selectPosition != null && selectPosition.equals(new Pos(row, col))
+//                ? BLUE_BACKGROUND
+//                : backgroundColor;
+//        if (selectPosition != null
+//            && selectPosition.getRow() == row
+//            && selectPosition.getCol() == col) {
+//          System.out.print(backgroundColor + board.getPiece(row, col).getId());
+//          System.out.print(BLACK_BACKGROUND + " ");
+//          continue;
+//        }
+//        if (board.getPiece(row, col) != null) {
+//          String fontColor = board.getPiece(row, col).getColor().equals("W") ? YELLOW : RED;
+//          System.out.print(backgroundColor + fontColor + board.getPiece(row, col).getId() + " ");
+//        } else if (currentPossibleMoves.contains(new Pos(row, col))) {
+//          System.out.print(backgroundColor + "*");
+//          System.out.print(BLACK_BACKGROUND + " ");
+//        } else {
+//          System.out.print(BLACK_BACKGROUND + "  ");
+//        }
+//      }
+//      System.out.print(BLACK_BACKGROUND + " " + row);
+//      System.out.println();
+//    }
+//    System.out.println(boundary);
+//  }
 
   public void printViewState(ViewState viewState) {
-    printBoard();
+//    printBoard();
     System.out.println(
         "Total round: " + viewState.getTotalRound() + "; whose turn: " + viewState.getWhoseTurn());
     if (Piece.getLastStep() != null) {

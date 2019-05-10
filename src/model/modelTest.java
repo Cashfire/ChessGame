@@ -20,7 +20,7 @@ public class modelTest {
   }
 
   public static void simulateClick(Controller controller) {
-    controller.getChessBoard().printBoard();
+//    controller.getChessBoard().printBoard();
     Scanner input = new Scanner(System.in);
     while (input.hasNext()) {
       String coordinate = input.next();

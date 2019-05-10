@@ -88,7 +88,7 @@ public class King extends Piece {
   }
 
   /**
-   * Clearing any pos in this list can save myKing. This is not for king move itself.
+   * occupy any pos in this list can save myKing. This is not for king move itself.
    *
    * @param board
    * @return
@@ -97,11 +97,11 @@ public class King extends Piece {
     Set<Pos> positions = new HashSet<>();
     Set<Piece> attackers = getAttackersFromBoard(board, getPos());
     if (attackers.size() == 1) {
-      Piece attacker = attackers.iterator().next();
+      Piece attacker = attackers.iterator().next(); //???
       Pos delta;
       if ("qbr".contains(attacker.getId().toLowerCase())) {
-        int deltaX = Integer.compare(getPos().getRow(), attacker.getPos().getRow());
-        int deltaY = Integer.compare(getPos().getCol(), attacker.getPos().getCol());
+        int deltaX = Integer.compare(attacker.getPos().getRow(), getPos().getRow());
+        int deltaY = Integer.compare(attacker.getPos().getCol(), getPos().getCol());
         delta = new Pos(deltaX, deltaY);
         positions.addAll(getMovesUntilOccupied(getPos(), delta, board));
       }
