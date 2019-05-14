@@ -145,7 +145,7 @@ public class King extends Piece {
           .filter(p -> getAttackersFromBoard(simulateMove(board, p), p).size() > 0)
           .collect(Collectors.toSet())
           .isEmpty()) {
-        positions.add(getPos().moveDelta(0, -3));
+        positions.add(getPos().moveDelta(0, -2));
       }
     }
     castlingPositions = positions;

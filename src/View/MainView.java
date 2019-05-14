@@ -47,7 +47,7 @@ public class MainView extends Application{
         //initiate the chess board
         controller = new Controller();
         drawBoard(controller.clickHandler(new Pos(4,4)));
-        HBox infoView = new HBox(100);
+        HBox infoView = new HBox(50);
         infoView.getChildren().addAll(whoseTurnText,totalRoundText);
         //The scene is a border pane, which contains a center gridPane and a bottom text.
         BorderPane borderPane = new BorderPane();
@@ -55,7 +55,7 @@ public class MainView extends Application{
         borderPane.setPadding(new Insets(10,10,10,10));
         borderPane.setBottom(infoView);
 
-        Scene scene = new Scene(borderPane, 500, 500);
+        Scene scene = new Scene(borderPane, 600, 600);
         primaryStage.setTitle("Chess Game");
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
