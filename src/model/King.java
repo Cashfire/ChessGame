@@ -124,9 +124,7 @@ public class King extends Piece {
         && checkBetweenEmpty(board, getPos(), rightRook.getPos())) {
       // make sure neither current position or all potential target positions are under attack check
       if (Arrays.asList(getPos(), getPos().moveDelta(0, 1), getPos().moveDelta(0, 2)).stream()
-          .filter(p -> getAttackersFromBoard(simulateMove(board, p), p).size() > 0)
-          .collect(Collectors.toSet()) //remains positions that have attackers.
-          .isEmpty()) {
+          .noneMatch(pos -> getAttackersFromBoard(simulateMove(board, pos), pos).size() > 0)) {
         positions.add(getPos().moveDelta(0, 2));
       }
     }
@@ -142,9 +140,7 @@ public class King extends Piece {
               getPos().moveDelta(0, -2),
               getPos().moveDelta(0, -3))
           .stream()
-          .filter(p -> getAttackersFromBoard(simulateMove(board, p), p).size() > 0)
-          .collect(Collectors.toSet())
-          .isEmpty()) {
+          .noneMatch(pos -> getAttackersFromBoard(simulateMove(board, pos), pos).size() > 0)) {
         positions.add(getPos().moveDelta(0, -2));
       }
     }
@@ -157,10 +153,10 @@ public class King extends Piece {
 
   private boolean checkBetweenEmpty(Board board, Pos kingPos, Pos rookPos) {
     int moveDirection = kingPos.getCol() > rookPos.getCol() ? -1 : 1;
-    for (int col = kingPos.getCol() + moveDirection;
-        moveDirection > 0 ? col < rookPos.getCol() : col > rookPos.getCol();
-        col = col + moveDirection) {
-      if (board.getPiece(kingPos.getRow(), col) != null) {
+    for (int colDelta = kingPos.getCol() + moveDirection;
+        moveDirection > 0 ? colDelta < rookPos.getCol() : colDelta > rookPos.getCol();
+        colDelta = colDelta + moveDirection) {
+      if (board.getPiece(kingPos.getRow(), colDelta) != null) {
         return false;
       }
     }
