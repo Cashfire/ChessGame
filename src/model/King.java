@@ -137,8 +137,7 @@ public class King extends Piece {
       if (Arrays.asList(
               getPos(),
               getPos().moveDelta(0, -1),
-              getPos().moveDelta(0, -2),
-              getPos().moveDelta(0, -3))
+              getPos().moveDelta(0, -2))
           .stream()
           .noneMatch(pos -> getAttackersFromBoard(simulateMove(board, pos), pos).size() > 0)) {
         positions.add(getPos().moveDelta(0, -2));
