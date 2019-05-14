@@ -153,10 +153,10 @@ public class King extends Piece {
 
   private boolean checkBetweenEmpty(Board board, Pos kingPos, Pos rookPos) {
     int moveDirection = kingPos.getCol() > rookPos.getCol() ? -1 : 1;
-    for (int colDelta = kingPos.getCol() + moveDirection;
-        moveDirection > 0 ? colDelta < rookPos.getCol() : colDelta > rookPos.getCol();
-        colDelta = colDelta + moveDirection) {
-      if (board.getPiece(kingPos.getRow(), colDelta) != null) {
+    for (int col = kingPos.getCol() + moveDirection;
+        moveDirection > 0 ? col < rookPos.getCol() : col > rookPos.getCol();
+        col = col + moveDirection) {
+      if (board.getPiece(kingPos.getRow(), col) != null) {
         return false;
       }
     }
