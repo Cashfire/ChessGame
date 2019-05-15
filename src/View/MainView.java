@@ -8,6 +8,7 @@ import controller.ViewState;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -17,6 +18,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import model.Pos;
 
+import java.io.FileInputStream;
 import java.util.Set;
 
 public class MainView extends Application{
@@ -68,7 +70,8 @@ public class MainView extends Application{
         for(int i = 0; i < 8; i++){
             for(int j = 0; j< 8; j++){
                 squares[i][j].setColor(whiteSquare);
-                squares[i][j].resetText("");
+//                squares[i][j].resetText("");
+                squares[i][j].resetPiece();
                 if(j != 7){
                     whiteSquare = (!whiteSquare);
                 }
@@ -137,22 +140,46 @@ public class MainView extends Application{
 
         }
         public void drawPiece(String id){
-            text = new Text(id);
-            text.setFont(Font.font(50));
-            text.setTextAlignment(TextAlignment.CENTER);
+//            text = new Text(id);
+//            text.setFont(Font.font(50));
+//            text.setTextAlignment(TextAlignment.CENTER);
+//            if("KQNBPR".contains(id)) {
+//                text.setFill(Color.WHITE);
+//            }else{
+//                text.setFill(Color.BLACK);
+//            }
+//
+//            this.getChildren().add(text);
+//
+//            this.setAlignment(javafx.geometry.Pos.CENTER);
+            String fileName = "";
             if("KQNBPR".contains(id)) {
-                text.setFill(Color.WHITE);
+//                text.setFill(Color.WHITE);
+                fileName = "images/w" + id.toLowerCase() + ".png"; // white pieces = wb.png
             }else{
-                text.setFill(Color.BLACK);
+//                text.setFill(Color.BLACK);
+                fileName = "images/" + id.toLowerCase() + ".png"; // black pieces = b.png
             }
 
-            this.getChildren().add(text);
+            try {
+                FileInputStream input = new FileInputStream(fileName);
+                Image img = new Image(input);
+                ImageView imgView = new ImageView(img);
+                this.getChildren().add(imgView);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+//            this.getChildren().add(text);
 
             this.setAlignment(javafx.geometry.Pos.CENTER);
         }
-        public void resetText(String id){
-            text.setText(id);
-        }
+
+//        public void resetText(String id){
+//            text.setText(id);
+//        }
+            public void resetPiece() {
+            this.getChildren().clear();}
+
     }
 }
 
