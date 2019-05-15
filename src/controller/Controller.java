@@ -18,6 +18,7 @@ public class Controller {
   }
 
   public ViewState clickHandler(Pos clickPosition) {
+    boolean moved = false;
     //if possibleMoves is empty and not piece in the chosen square, do nothing????
     //if possibleMoves is empty and a piece is chosen, add the piece's validMoves
     if (chessBoard.getCurrentPossibleMoves().isEmpty()) {
@@ -36,6 +37,7 @@ public class Controller {
             .getBoard()
             .getPiece(chessBoard.getSelectPosition())
             .move(chessBoard.getBoard(), clickPosition, false);
+        moved = true;
         chessBoard.getCurrentPossibleMoves().clear();
         chessBoard.setSelectPosition(null);
       } else {
@@ -55,11 +57,16 @@ public class Controller {
         }
       }
       }
-    return new ViewState(
+
+    ViewState viewState = new ViewState(
         chessBoard.getCurrentPossibleMoves(),
         Piece.getWhoseTurn(),
         Piece.getTotalRound(),
         getViewPieces());
+    if(moved){
+      viewState.setCurrentMove(Piece.getLastStep());
+    }
+    return viewState;
   }
 
   public Set<ViewPiece> getViewPieces() {
